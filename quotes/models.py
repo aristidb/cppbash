@@ -4,5 +4,5 @@ from google.appengine.ext import db
 class Quote(BaseModel):
     creation_date=db.DateTimeProperty()
     language=db.StringProperty()
-    quote=db.StringProperty()
+    quote=db.TextProperty()
 
