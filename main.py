@@ -6,7 +6,7 @@ class MainPage(webapp.RequestHandler):
     def get(self):
         time = datetime.datetime.now()
         self.response.headers['Content-Type'] = 'text/html'
-        self.response.out.write('<p>The webapp time is %s</p>' % str(time))
+        self.response.out.write('<img src="images/logo.png"><p>The webapp time is %s</p>' % str(time))
 
 application = webapp.WSGIApplication([('/', MainPage)], debug=True)
 
