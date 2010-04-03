@@ -14,7 +14,10 @@
 
 from django.conf.urls.defaults import *
 
-urlpatterns = patterns('',
+urlpatterns = patterns(
+    '',
+    (r'^quotes/', 'quotes.views.home')
+
     # Example:
     # (r'^foo/', include('foo.urls')),
 

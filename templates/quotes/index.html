@@ -1,0 +1,15 @@
+<html>
+  <body>
+    <h1>Quotes</h1>
+    <p>Quotes in our catalog:</p>
+    <ul>
+      {% for quote in quotes %}
+      <li>
+        {{ quote.creation_date }}
+        - {{ quote.language }}
+        - {{ quote.quote }}
+      </li>
+      {% endfor %}
+    </ul>
+  </body>
+</html>
