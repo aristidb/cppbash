@@ -9,9 +9,9 @@
     <ul>
       {% for quote in quotes %}
       <li>
-        {{ quote.creation_date }}
-        - {{ quote.language }}
-        - {{ quote.quote }}
+        <span class="quote-creation-date">{{ quote.creation_date }}</span>
+        <span class="quote-language">{{ quote.language }}</span>
+        <div class="quote-quote">{{ quote.quote|linebreaksbr }}</div>
       </li>
       {% endfor %}
     </ul>
