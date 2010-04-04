@@ -9,7 +9,7 @@ class Quote(BaseModel):
     language=db.CategoryProperty()
     programming_language=db.CategoryProperty()
     quote=db.TextProperty()
-    accepted=db.BooleanProperty()
+    accepted=db.BooleanProperty(required = True)
     accepted_by=db.ReferenceProperty(Reviewer)
     accepted_date=db.DateTimeProperty()
     submitter_ip=db.StringProperty()

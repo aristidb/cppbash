@@ -18,7 +18,9 @@ urlpatterns = patterns(
     '',
     (r'^$', 'quotes.views.home'),
     (r'^submit$', 'quotes.views.submit_form'),
-    (r'^quote/(.*)', 'quotes.views.quote')
+    (r'^quote/(.*)', 'quotes.views.quote'),
+    (r'^review$', 'quotes.views.review'),
+    (r'^review/(.*)$', 'quotes.views.review_submit'),
 
     # Example:
     # (r'^foo/', include('foo.urls')),

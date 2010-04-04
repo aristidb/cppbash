@@ -1,0 +1,18 @@
+{% extends "quotes/base.html" %}
+
+{% block body_title %}Quotes{% endblock %}
+
+{% block content %}
+<p>Quotes in our catalog:</p>
+<ul>
+  {% for quote in quotes %}
+  <li>
+    <form action="/review/{{ quote.key }}" method="POST">
+      <textarea name="quote">{{ quote.quote }}</textarea>
+      <input type="checkbox" name="accept"> Accept<br>
+      <input type="submit" value="Reviewed!">
+    </form>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}
