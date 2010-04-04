@@ -7,6 +7,8 @@ handlers:
 - url: /remote_api
   script: $PYTHON_LIB/google/appengine/ext/remote_api/handler.py
   login: admin
+- url: /stats.*
+  script: $PYTHON_LIB/google/appengine/ext/appstats/ui.py
 - url: /favicon.ico
   static_files: static/favicon.ico
   upload: static/favicon.ico
