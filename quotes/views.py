@@ -23,6 +23,7 @@ def submit_form(request):
         if p['email']:
             q.submitter_email = db.Email(p['email'])
         q.submitter_ip = os.environ['REMOTE_ADDR']
+        q.creation_date = datetime.datetime.now()
         # todo: validate
         q.put()
         return render_to_response('quotes/quote.html', { 'quote': q })
