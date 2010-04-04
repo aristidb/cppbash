@@ -7,6 +7,7 @@ class Reviewer(BaseModel):
 class Quote(BaseModel):
     creation_date=db.DateTimeProperty(auto_now = True)
     language=db.CategoryProperty()
+    programming_language=db.CategoryProperty()
     quote=db.TextProperty()
     accepted=db.BooleanProperty()
     accepted_by=db.ReferenceProperty(Reviewer)
