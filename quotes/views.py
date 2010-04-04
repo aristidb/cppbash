@@ -14,14 +14,14 @@ def home(request):
 def submit_form(request):
     if request.method == 'POST':
         p = request.POST
-        quote = models.Quote(
+        q = models.Quote(
             quote = p['quote'],
             language = p['language'],
             programming_language = p['programming_language'],
             submitter_email = p['email'])
         # todo: validate
-        quote.put()
-        return HttpResponseRedirect('/')
+        q.put()
+        return render_to_response('quotes/quote.html', { 'quote': q })
     else:
         return render_to_response('quotes/submit.html', { })
 
