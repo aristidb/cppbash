@@ -21,7 +21,8 @@ def submit_form(request):
             programming_language = p['programming_language'],
             accepted = False)
         if p['email']:
-            q.email = db.Email(p['email'])
+            q.submitter_email = db.Email(p['email'])
+        q.submitter_ip = os.environ['REMOTE_ADDR']
         # todo: validate
         q.put()
         return render_to_response('quotes/quote.html', { 'quote': q })
