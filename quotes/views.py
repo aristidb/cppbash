@@ -9,7 +9,7 @@ import datetime
 import os
 
 def home(request):
-    q = models.Quote.all().filter('accepted =', True).order('creation_date')
+    q = models.Quote.all().filter('accepted =', True).order('-creation_date')
     return render_to_response('quotes/index.html', { 'quotes': q })
 
 def submit_form(request):
