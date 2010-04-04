@@ -60,7 +60,7 @@ import django
 # the web UI when an exception occurs.  (Tracebacks are always logged
 # at the ERROR level as well.)
 
-appstats_DEBUG = False
+appstats_DEBUG = True
 
 # DUMP_LEVEL: -1, 0, 1 or 2.  Controls how much debug output is
 # written to the logs by the internal dump() function during event
@@ -156,23 +156,23 @@ appstats_FILTER_LIST = []
 # above) *and* random.random() < RECORD_FRACTION.
 
 def appstats_should_record(env):
-  if config.FILTER_LIST:
-    logging.debug('FILTER_LIST: %r', config.FILTER_LIST)
-    for filter_dict in config.FILTER_LIST:
-      for key, regex in filter_dict.iteritems():
-        negated = isinstance(regex, str) and regex.startswith('!')
-        if negated:
-          regex = regex[1:]
-        value = env.get(key, '')
-        if bool(re.match(regex, value)) == negated:
-          logging.debug('No match on %r for %s=%r', regex, key, value)
-          break
-      else:
-        logging.debug('Match on %r', filter_dict)
-        break
-    else:
-      logging.debug('Non-empty FILTER_LIST, but no filter matches')
-      return False
+  #if config.FILTER_LIST:
+  #  logging.debug('FILTER_LIST: %r', config.FILTER_LIST)
+  #  for filter_dict in config.FILTER_LIST:
+  #    for key, regex in filter_dict.iteritems():
+  #      negated = isinstance(regex, str) and regex.startswith('!')
+  #      if negated:
+  #        regex = regex[1:]
+  #      value = env.get(key, '')
+  #      if bool(re.match(regex, value)) == negated:
+  #        logging.debug('No match on %r for %s=%r', regex, key, value)
+  #        break
+  #    else:
+  #      logging.debug('Match on %r', filter_dict)
+  #      break
+  #  else:
+  #    logging.debug('Non-empty FILTER_LIST, but no filter matches')
+  #    return False
   if appstats_RECORD_FRACTION >= 1.0:
     return True
   return random.random() < appstats_RECORD_FRACTION
