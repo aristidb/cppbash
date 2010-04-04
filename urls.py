@@ -17,7 +17,8 @@ from django.conf.urls.defaults import *
 urlpatterns = patterns(
     '',
     (r'^$', 'quotes.views.home'),
-    (r'^submit$', 'quotes.views.submit_form')
+    (r'^submit$', 'quotes.views.submit_form'),
+    (r'^quote/(.*)', 'quotes.views.quote')
 
     # Example:
     # (r'^foo/', include('foo.urls')),

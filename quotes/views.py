@@ -1,5 +1,6 @@
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
+from django.http import Http404
 from google.appengine.ext import db
 from google.appengine.ext.db import djangoforms
 from quotes import models
@@ -26,4 +27,11 @@ def submit_form(request):
             return HttpResponseRedirect('/')
     else:
         form = SubmitForm()
-        return render_to_response('quotes/submit.html', {  'form': form })
+        return render_to_response('quotes/submit.html', { 'form': form })
+
+def quote(request, key_name):
+    key = db.Key(key_name)
+    q = db.get(key)
+    if not q:
+        raise Http404
+    return render_to_response('quotes/quote.html', { 'quote': q })
