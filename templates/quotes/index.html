@@ -1,24 +1,18 @@
-<html>
-  <head>
-    <title>C++ Bash - Quotes from the C++ world</title>
-    <style>
-      @import "/static/main.css";
-    </style>
-  </head>
-  <body>
-    <a href="/"><img src="/static/logo.png"></a>
-    <h1>Quotes</h1>
-    <p>Quotes in our catalog:</p>
-    <ul>
-      {% for quote in quotes %}
-      <li>
-        <span class="quote-creation-date">
-          <a href="/quote/{{ quote.key }}">{{ quote.creation_date }}</a>
-        </span>
-        <span class="quote-language">{{ quote.language }}</span>
-        <div class="quote-quote">{{ quote.quote|linebreaksbr }}</div>
-      </li>
-      {% endfor %}
-    </ul>
-  </body>
-</html>
+{% extends "quotes/base.html" %}
+
+{% block body_title %}Quotes{% endblock %}
+
+{% block content %}
+<p>Quotes in our catalog:</p>
+<ul>
+  {% for quote in quotes %}
+  <li>
+    <span class="quote-creation-date">
+      <a href="/quote/{{ quote.key }}">{{ quote.creation_date }}</a>
+    </span>
+    <span class="quote-language">{{ quote.language }}</span>
+    <div class="quote-quote">{{ quote.quote|linebreaksbr }}</div>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %}

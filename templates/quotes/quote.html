@@ -1,16 +1,12 @@
-<html>
-  <head>
-    <title>C++ Bash - Quotes from the C++ world</title>
-    <style>
-      @import "/static/main.css";
-    </style>
-  </head>
-  <body>
-    <a href="/"><img src="/static/logo.png"></a>
-    <h1>Quote</h1>
-    <p>Quote:</p>
-    <span class="quote-creation-date">{{ quote.creation_date }}</span>
-    <span class="quote-language">{{ quote.language }}</span>
-    <div class="quote-quote">{{ quote.quote|linebreaksbr }}</div>
-  </body>
-</html>
+{% extends "quotes/base.html" %}
+
+{% block head_title %}Show quote @{% endblock %}
+
+{% block body_title %}Quote{% endblock %}
+
+{% block content %}
+<p>Quote:</p>
+<span class="quote-creation-date">{{ quote.creation_date }}</span>
+<span class="quote-language">{{ quote.language }}</span>
+<div class="quote-quote">{{ quote.quote|linebreaksbr }}</div>
+{% endblock %}
