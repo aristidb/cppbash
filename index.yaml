@@ -20,3 +20,25 @@ indexes:
   - name: accepted
   - name: creation_date
     direction: desc
+
+- kind: Quote
+  properties:
+  - name: accepted
+  - name: language
+  - name: creation_date
+    direction: desc
+
+- kind: Quote
+  properties:
+  - name: accepted
+  - name: language
+  - name: programming_language
+  - name: creation_date
+    direction: desc
+
+- kind: Quote
+  properties:
+  - name: accepted
+  - name: programming_language
+  - name: creation_date
+    direction: desc

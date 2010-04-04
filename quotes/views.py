@@ -9,7 +9,15 @@ import datetime
 import os
 
 def home(request):
-    q = models.Quote.all().filter('accepted =', True).order('-creation_date')
+    q = models.Quote.all()
+    q.filter('accepted =', True)
+    language = request.GET.get('language', None)
+    if language:
+        q.filter('language =', language)
+    programming_language = request.GET.get('programming_language', None)
+    if programming_language:
+        q.filter('programming_language =', programming_language)
+    q.order('-creation_date')
     return render_to_response('quotes/index.html', { 'quotes': q })
 
 def submit_form(request):
