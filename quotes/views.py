@@ -11,23 +11,19 @@ def home(request):
     q = models.Quote.all().filter('accepted =', True).order('creation_date')
     return render_to_response('quotes/index.html', { 'quotes': q })
 
-class SubmitForm(djangoforms.ModelForm):
-    class Meta:
-        model = models.Quote
-        fields = ['language', 'quote', 'submitter_email']
-
 def submit_form(request):
     if request.method == 'POST':
-        form = SubmitForm(request.POST)
-        if form.is_valid():
-            quote = form.save(commit=False)
-            quote.accepted = False
-            quote.submitter_ip = os.environ['REMOTE_ADDR']
-            quote.put()
-            return HttpResponseRedirect('/')
+        p = request.POST
+        quote = models.Quote(
+            quote = p['quote'],
+            language = p['language'],
+            programming_language = p['programming_language'],
+            submitter_email = p['email'])
+        # todo: validate
+        quote.put()
+        return HttpResponseRedirect('/')
     else:
-        form = SubmitForm()
-        return render_to_response('quotes/submit.html', { 'form': form })
+        return render_to_response('quotes/submit.html', { })
 
 def quote(request, key_name):
     key = db.Key(key_name)

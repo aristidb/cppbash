@@ -9,10 +9,26 @@
     <a href="/"><img src="/static/logo.png"></a>
     <h1>Submit quote</h1>
     <form action="/submit" method="POST">
-      <table>
-      {{ form }}
-      </table>
-      <p><input type="submit"></p>
+      <p><textarea rows="10" cols="50" name="quote"></textarea></p>
+      <p>
+        <label for="language">Language:</label>
+        <select name="language" size="1">
+          <option>English</option>
+          <option>German</option>
+        </select>
+      </p>
+      <p>
+        <label for="programming_language">Programming language:</label>
+        <select name="programming_language" size="1">
+          <option>C++</option>
+          <option>Haskell</option>
+        </select>
+      </p>
+      <p>
+        <label for="email">Email address:</label>
+        <input name="email">
+      </p>
+      <p><input type="submit" value="Submit quote"></p>
     </form>
   </body>
 </html>
