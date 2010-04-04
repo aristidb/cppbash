@@ -19,3 +19,8 @@ handlers:
   login: required
 - url: /.*
   script: main.py
+
+admin_console:
+  pages:
+  - name: Appstats
+    url: /stats
