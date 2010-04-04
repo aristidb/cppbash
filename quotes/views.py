@@ -56,6 +56,8 @@ def review_submit(request, key_name):
     q = db.get(key)
     if request.POST.get('accept', ''):
         q.quote = request.POST['quote']
+        q.language = request.POST['language']
+        q.programming_language = request.POST['programming_language']
         q.accepted = True
         q.accepted_by = r
         q.accepted_date = datetime.datetime.now()
