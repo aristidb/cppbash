@@ -8,7 +8,7 @@
   {% for quote in quotes %}
   <li>
     <form action="/review/{{ quote.key }}" method="POST">
-      <textarea name="quote">{{ quote.quote }}</textarea><br>
+      <textarea name="quote" cols="40" rows="5">{{ quote.quote }}</textarea><br>
       <input name="language" value="{{ quote.language }}"><br>
       <input name="programming_language" value="{{ quote.programming_language }}"><br>
       <input type="checkbox" name="accept" checked> Accept<br>
