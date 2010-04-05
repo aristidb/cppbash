@@ -30,7 +30,11 @@ def home(request):
     if programming_language:
         q.filter('programming_language =', programming_language)
     q.order('-creation_date')
-    c = RequestContext(request, { 'quotes': q })
+    c = RequestContext(request, {
+            'quotes': q,
+            'language': language,
+            'programming_language': programming_language
+            })
     t = get_template('quotes/index.html')
     response.write(t.render(c))
     return response
