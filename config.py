@@ -12,8 +12,8 @@ config = {}
 
 # Configurations for the 'tipfy' module.
 config['tipfy'] = {
-    # Enable debugger. It will be loaded only in development.
     'middleware': [
         'tipfy.ext.debugger.DebuggerMiddleware',
+        'middleware.jinja.JinjaMiddleware'
     ],
 }
