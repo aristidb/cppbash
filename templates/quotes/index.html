@@ -1,16 +1,17 @@
 {% extends "quotes/base.html" %}
-{% load urls %}
+{# load urls #}
 
 {% block body_title %}Quotes{% endblock %}
 
 {% block content %}
+
 <p><a href="/submit">Submit a new quote</a></p>
 <p>Filter language:
 {% if language %}
 ({{ language }})
 {% endif %}
 {% for language in languages %}
-<a href="/?language={{ language|paramify }}">[{{ language|default:"No filter" }}]</a>
+<a href="/?language={{ language }}">[{{ language|default("No filter",true) }}]</a>
 {% endfor %}
 </p>
 <p>Filter programming language:
@@ -18,7 +19,7 @@
 ({{ programming_language }})
 {% endif %}
 {% for programming_language in programming_languages %}
-<a href="/?programming_language={{ programming_language|paramify }}">[{{ programming_language|default:"No filter" }}]</a>
+<a href="/?programming_language={{ programming_language }}">[{{ programming_language|default("No filter",true) }}]</a>
 {% endfor %}
 </p>
 
@@ -31,7 +32,7 @@
     </span>
     <span class="quote-language">{{ quote.language }}</span>
     <span class="quote-programming-language">{{ quote.programming_language }}</span>
-    <div class="quote-quote">{{ quote.quote|linebreaksbr }}</div>
+    <div class="quote-quote">{{ quote.quote|replace("\n","<br>") }}</div>
   </li>
   {% endfor %}
 </ul>

@@ -1,13 +1,12 @@
-from appengine_django.models import BaseModel
 from google.appengine.ext import db
 
 languages = ['English', 'German']
 programming_languages = ['C++', 'Python', 'Haskell', 'Prolog', 'Visual Basic / Java']
 
-class Reviewer(BaseModel):
+class Reviewer(db.Model):
     user=db.UserProperty()
 
-class Quote(BaseModel):
+class Quote(db.Model):
     creation_date=db.DateTimeProperty()
     language=db.CategoryProperty()
     programming_language=db.CategoryProperty()

@@ -15,7 +15,9 @@ def get_rules():
     entirely here or in separate ``urls.py`` files. Here we show an example of
     joining all rules from the ``apps_installed`` listed in config.
     """
-    rules = []
+    rules = [
+        tipfy.Rule('/', endpoint='cppbash/home', handler='handlers.HomeHandler')
+        ]
 
     for app_module in tipfy.get_config('tipfy', 'apps_installed'):
         try:
