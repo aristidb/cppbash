@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% import "quote_base.html" as quote_base %}
 
 {% block head_title %}Show quote @{% endblock %}
 
@@ -6,8 +7,5 @@
 
 {% block content %}
 <p>Quote:</p>
-<span class="quote-creation-date">{{ quote.creation_date }}</span>
-<span class="quote-language">{{ quote.language }}</span>
-<span class="quote-programming-language">{{ quote.programming_language }}</span>
-<div class="quote-quote">{{ quote.quote }}</div>
+{{ quote_base.quote(quote, false) }}
 {% endblock %}

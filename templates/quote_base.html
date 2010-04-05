@@ -1,0 +1,14 @@
+{% macro quote(q, link) %}
+<span class="quote-creation-date">
+  {% if link %}
+  <a href="/quote/{{ quote.key }}">
+  {% endif %}
+    {{ q.creation_date }}
+  {% if link %}
+  </a>
+  {% endif %}
+</span>
+<span class="quote-language">{{ q.language }}</span>
+<span class="quote-programming-language">{{ q.programming_language }}</span>
+<div class="quote-quote">{{ q.quote|replace("\n","<br>") }}</div>
+{% endmacro %}

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{# load urls #}
+{% import "quote_base.html" as quote_base %}
 
 {% block body_title %}Quotes{% endblock %}
 
@@ -26,14 +26,7 @@
 <p>Quotes in our catalog:</p>
 <ul>
   {% for quote in quotes %}
-  <li>
-    <span class="quote-creation-date">
-      <a href="/quote/{{ quote.key }}">{{ quote.creation_date }}</a>
-    </span>
-    <span class="quote-language">{{ quote.language }}</span>
-    <span class="quote-programming-language">{{ quote.programming_language }}</span>
-    <div class="quote-quote">{{ quote.quote|replace("\n","<br>") }}</div>
-  </li>
+  <li>{{ quote_base.quote(quote, true) }}</li>
   {% endfor %}
 </ul>
 {% endblock %}
