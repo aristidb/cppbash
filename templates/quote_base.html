@@ -10,5 +10,5 @@
 </span>
 <span class="quote-language">{{ q.language }}</span>
 <span class="quote-programming-language">{{ q.programming_language }}</span>
-<div class="quote-quote">{{ q.quote|replace("\n","<br>") }}</div>
+<div class="quote-quote">{{ q.quote|linebreaks }}</div>
 {% endmacro %}
