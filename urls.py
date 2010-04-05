@@ -16,7 +16,7 @@ def get_rules():
     joining all rules from the ``apps_installed`` listed in config.
     """
     rules = [
-        tipfy.Rule('/', endpoint='home', handler='handlers.HomeHandler'),
+        tipfy.Rule('/', endpoint='home', handler='home.HomeHandler'),
         tipfy.Rule('/submit', endpoint='submit', handler='handlers.SubmitHandler'),
         ]
 
