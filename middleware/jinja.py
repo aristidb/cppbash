@@ -1,6 +1,6 @@
 from tipfy.ext.jinja2 import get_env
 from jinja2 import evalcontextfilter, Markup, escape
-import re
+import re, urllib
 
 _paragraph_re = re.compile(r'\n{2,}')
 
@@ -15,10 +15,14 @@ def linebreaks(eval_ctx, value):
         result = Markup(result)
     return result
 
+def urlparameter(value):
+    return urllib.quote_plus(value)
+
 class JinjaMiddleware(object):
     def pre_dispatch_handler(self):
         env = get_env()
         env.autoescape = True
         env.filters['linebreaks'] = linebreaks
+        env.filters['urlparameter'] = urlparameter
 
     

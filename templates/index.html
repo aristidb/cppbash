@@ -13,7 +13,7 @@
 ({{ item }})
 {% endif %}
 {% for item in collection %}
-<a href="/?{{ parameter_name }}={{ item }}">[{{ item|default("No filter",true) }}]</a>
+<a href="/?{{ parameter_name }}={{ item|urlparameter }}">[{{ item|default("No filter",true) }}]</a>
 {% endfor %}
 </p>
 {% endmacro %}
