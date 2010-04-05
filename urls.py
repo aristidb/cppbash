@@ -18,6 +18,8 @@ def get_rules():
     rules = [
         tipfy.Rule('/', endpoint='home', handler='home.HomeHandler'),
         tipfy.Rule('/submit', endpoint='submit', handler='submit.SubmitHandler'),
+        tipfy.Rule('/review', endpoint='review-start', handler='review.ReviewStartHandler'),
+        tipfy.Rule('/review/<string:key_name>', endpoint='review-quote', handler='review.ReviewQuoteHandler'),
         ]
 
     for app_module in tipfy.get_config('tipfy', 'apps_installed'):
