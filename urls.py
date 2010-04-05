@@ -1,30 +1,28 @@
-# Copyright 2008 Google Inc.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+# -*- coding: utf-8 -*-
+"""
+    urls
+    ~~~~
 
-from django.conf.urls.defaults import *
+    URL definitions.
 
-urlpatterns = patterns(
-    '',
-    (r'^$', 'quotes.views.home'),
-    (r'^submit$', 'quotes.views.submit_form'),
-    (r'^quote/(.*)', 'quotes.views.quote'),
-    (r'^review$', 'quotes.views.review'),
-    (r'^review/(.*)$', 'quotes.views.review_submit'),
+    :copyright: 2009 by tipfy.org.
+    :license: BSD, see LICENSE.txt for more details.
+"""
+import tipfy
 
-    # Example:
-    # (r'^foo/', include('foo.urls')),
+def get_rules():
+    """Returns a list of URL rules for the application. The list can be defined
+    entirely here or in separate ``urls.py`` files. Here we show an example of
+    joining all rules from the ``apps_installed`` listed in config.
+    """
+    rules = []
 
-    # Uncomment this for admin:
-#     (r'^admin/', include('django.contrib.admin.urls')),
-)
+    for app_module in tipfy.get_config('tipfy', 'apps_installed'):
+        try:
+            # Load the urls module from the app and extend our rules.
+            app_rules = tipfy.import_string('%s.urls' % app_module)
+            rules.extend(app_rules.get_rules())
+        except ImportError:
+            pass
+
+    return rules
