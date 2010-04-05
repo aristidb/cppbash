@@ -14,6 +14,7 @@ config = {}
 config['tipfy'] = {
     'middleware': [
         'tipfy.ext.debugger.DebuggerMiddleware',
+        'tipfy.ext.appstats.AppstatsMiddleware',
         'middleware.jinja.JinjaMiddleware'
     ],
 }
