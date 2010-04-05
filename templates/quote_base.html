@@ -1,7 +1,7 @@
 {% macro quote(q, link) %}
 <span class="quote-creation-date">
   {% if link %}
-  <a href="/quote/{{ quote.key }}">
+  <a href="/quote/{{ q.key() }}">
   {% endif %}
     {{ q.creation_date }}
   {% if link %}
