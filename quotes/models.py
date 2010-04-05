@@ -1,6 +1,9 @@
 from appengine_django.models import BaseModel
 from google.appengine.ext import db
 
+languages = ['English', 'German']
+programming_languages = ['C++', 'Python', 'Haskell', 'Prolog', 'Visual Basic / Java']
+
 class Reviewer(BaseModel):
     user=db.UserProperty()
 

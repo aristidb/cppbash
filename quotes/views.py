@@ -55,7 +55,10 @@ def submit_form(request):
         q.put()
         return render_to_response('quotes/quote.html', { 'quote': q })
     else:
-        return render_to_response('quotes/submit.html', { })
+        return render_to_response('quotes/submit.html', {
+                'languages': models.languages,
+                'programming_languages': models.programming_languages
+                })
 
 def quote(request, key_name):
     key = db.Key(key_name)
