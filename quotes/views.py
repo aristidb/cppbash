@@ -1,6 +1,9 @@
 from django.shortcuts import render_to_response
+from django.template.loader import get_template
+from django.template import RequestContext
 from django.http import HttpResponseRedirect
 from django.http import Http404
+from django.http import HttpResponse
 from google.appengine.ext import db
 from google.appengine.ext.db import djangoforms
 from google.appengine.api import users
@@ -8,17 +11,29 @@ from quotes import models
 import datetime
 import os
 
+def _filter(name, request, response):
+    data = request.GET.get(name, None)
+    if data != None:
+        response.set_cookie(name, data)
+        return data
+    else:
+        return request.COOKIES.get(name, None)
+
 def home(request):
+    response = HttpResponse()
+    language = _filter('language', request, response)
+    programming_language = _filter('programming_language', request, response)
     q = models.Quote.all()
     q.filter('accepted =', True)
-    language = request.GET.get('language', None)
     if language:
         q.filter('language =', language)
-    programming_language = request.GET.get('programming_language', None)
     if programming_language:
         q.filter('programming_language =', programming_language)
     q.order('-creation_date')
-    return render_to_response('quotes/index.html', { 'quotes': q })
+    c = RequestContext(request, { 'quotes': q })
+    t = get_template('quotes/index.html')
+    response.write(t.render(c))
+    return response
 
 def submit_form(request):
     if request.method == 'POST':
