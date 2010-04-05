@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block head_title %}Submit quote @{% endblock %}
+
+{% block body_title %}Submit quote{% endblock %}
+
+{% block content %}
+<form action="/submit" method="POST">
+  <p><textarea rows="10" cols="50" name="quote"></textarea></p>
+  <p>
+    <label for="language">Language:</label>
+    <select id="language" name="language" size="1">
+      {% for language in languages %}
+      <option>{{ language }}</option>
+      {% endfor %}
+    </select>
+  </p>
+  <p>
+    <label for="programming_language">Programming language:</label>
+    <select id="programming_language" name="programming_language" size="1">
+      {% for programming_language in programming_languages %}
+      <option>{{ programming_language}}</option>
+      {% endfor %}
+    </select>
+  </p>
+  <p>
+    <label for="email">Email address (optional):</label>
+    <input id="email" name="email">
+  </p>
+  <p><input type="submit" value="Submit quote"></p>
+</form>
+{% endblock content %}
