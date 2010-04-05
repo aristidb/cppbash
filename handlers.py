@@ -1,5 +1,5 @@
 from tipfy import RequestHandler, request, Response
-from tipfy.ext.jinja2 import render_template
+from tipfy.ext.jinja2 import render_template, render_response
 from google.appengine.ext import db
 from google.appengine.api import users
 import models
@@ -49,27 +49,27 @@ class HomeHandler(RequestHandler):
 
         return response
 
-#def submit_form(request):
-#    if request.method == 'POST':
-#        p = request.POST
-#        q = models.Quote(
-#            quote = p['quote'],
-#            language = p['language'],
-#            programming_language = p['programming_language'],
-#            accepted = False)
-#        if p['email']:
-#            q.submitter_email = db.Email(p['email'])
-#        q.submitter_ip = os.environ['REMOTE_ADDR']
-#        q.creation_date = datetime.datetime.now()
-#        # todo: validate
-#        q.put()
-#        return render_to_response('quotes/quote.html', { 'quote': q })
-#    else:
-#        return render_to_response('quotes/submit.html', {
-#                'languages': models.languages,
-#                'programming_languages': models.programming_languages
-#                })
-#
+class SubmitHandler(RequestHandler):
+    def post(self, **kwargs):
+        p = request.form
+        q = models.Quote(
+            quote = p['quote'],
+            language = p['language'],
+            programming_language = p['programming_language'],
+            accepted = False)
+        if p['email']:
+            q.submitter_email = db.Email(p['email'])
+        q.submitter_ip = os.environ['REMOTE_ADDR']
+        q.creation_date = datetime.datetime.now()
+        # todo: validate
+        q.put()
+        return render_response('quotes/quote.html', quote = q )
+
+    def get(self, **kwargs):
+        return render_response('quotes/submit.html', 
+                               languages = models.languages,
+                               programming_languages = models.programming_languages)
+
 #def quote(request, key_name):
 #    key = db.Key(key_name)
 #    q = db.get(key)

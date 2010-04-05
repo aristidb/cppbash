@@ -16,7 +16,8 @@ def get_rules():
     joining all rules from the ``apps_installed`` listed in config.
     """
     rules = [
-        tipfy.Rule('/', endpoint='cppbash/home', handler='handlers.HomeHandler')
+        tipfy.Rule('/', endpoint='home', handler='handlers.HomeHandler'),
+        tipfy.Rule('/submit', endpoint='submit', handler='handlers.SubmitHandler'),
         ]
 
     for app_module in tipfy.get_config('tipfy', 'apps_installed'):
