@@ -19,10 +19,18 @@ def _filter(name, request, response):
     else:
         return request.COOKIES.get(name, None)
 
+def _alternatives(removed, standard):
+    possible = standard[:]
+    possible.append('')
+    if removed != None:
+        possible.remove(removed)
+    return possible
+
 def home(request):
     response = HttpResponse()
     language = _filter('language', request, response)
     programming_language = _filter('programming_language', request, response)
+
     q = models.Quote.all()
     q.filter('accepted =', True)
     if language:
@@ -30,10 +38,16 @@ def home(request):
     if programming_language:
         q.filter('programming_language =', programming_language)
     q.order('-creation_date')
+
+    languages = _alternatives(language, models.languages)
+    programming_languages = _alternatives(programming_language, models.programming_languages)
+
     c = RequestContext(request, {
             'quotes': q,
             'language': language,
-            'programming_language': programming_language
+            'languages': languages,
+            'programming_language': programming_language,
+            'programming_languages': programming_languages
             })
     t = get_template('quotes/index.html')
     response.write(t.render(c))

@@ -1,9 +1,27 @@
 {% extends "quotes/base.html" %}
+{% load urls %}
 
 {% block body_title %}Quotes{% endblock %}
 
 {% block content %}
 <p><a href="/submit">Submit a new quote</a></p>
+<p>Filter language:
+{% if language %}
+({{ language }})
+{% endif %}
+{% for language in languages %}
+<a href="/?language={{ language|paramify }}">[{{ language|default:"No filter" }}]</a>
+{% endfor %}
+</p>
+<p>Filter programming language:
+{% if programming_language %}
+({{ programming_language }})
+{% endif %}
+{% for programming_language in programming_languages %}
+<a href="/?programming_language={{ programming_language|paramify }}">[{{ programming_language|default:"No filter" }}]</a>
+{% endfor %}
+</p>
+
 <p>Quotes in our catalog:</p>
 <ul>
   {% for quote in quotes %}
