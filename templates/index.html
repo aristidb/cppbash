@@ -6,22 +6,20 @@
 {% block content %}
 
 <p><a href="/submit">Submit a new quote</a></p>
-<p>Filter language:
-{% if language %}
-({{ language }})
+
+{% macro filters(name, parameter_name, item, collection) %}
+<p>Filter {{ name }}:
+{% if item %}
+({{ item }})
 {% endif %}
-{% for language in languages %}
-<a href="/?language={{ language }}">[{{ language|default("No filter",true) }}]</a>
+{% for item in collection %}
+<a href="/?{{ parameter_name }}={{ item }}">[{{ item|default("No filter",true) }}]</a>
 {% endfor %}
 </p>
-<p>Filter programming language:
-{% if programming_language %}
-({{ programming_language }})
-{% endif %}
-{% for programming_language in programming_languages %}
-<a href="/?programming_language={{ programming_language }}">[{{ programming_language|default("No filter",true) }}]</a>
-{% endfor %}
-</p>
+{% endmacro %}
+
+{{ filters("language", "language", language, languages) }}
+{{ filters("programming language", "programming_language", programming_language, programming_languages) }}
 
 <p>Quotes in our catalog:</p>
 <ul>
