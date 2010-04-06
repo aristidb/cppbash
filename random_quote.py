@@ -5,6 +5,8 @@ from werkzeug.exceptions import NotFound
 import models, filters, quotejson
 import random
 
+_n = 5
+
 class RandomQuoteHandler(RequestHandler):
     def get(self, **kwargs):
         json = request.is_xhr or request.args.get('json', '')
@@ -28,7 +30,20 @@ class RandomQuoteHandler(RequestHandler):
             query.filter('programming_language =', programming_language)
         query.filter('random >', random.random())
         query.order('random')
-        q = query.get()
+
+        qs = [ q for q in query.fetch(_n) ]
+
+        if len(qs) < _n: # wraparound!
+            query = models.Quote.all()
+            query.filter('accepted =', True)
+            if language:
+                query.filter('language =', language)
+            if programming_language:
+                query.filter('programming_language =', programming_language)
+            query.order('random')
+            qs.extend(query.fetch(_n - len(qs)))
+
+        q = random.choice(qs)
 
         if json:
             if q == None:
