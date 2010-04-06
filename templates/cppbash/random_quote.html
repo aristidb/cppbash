@@ -1,0 +1,11 @@
+{% extends "cppbash/base.html" %}
+{% import "cppbash/quote_base.html" as quote_base %}
+
+{% block head_title %}Show random quote @{% endblock %}
+
+{% block body_title %}Random quote{% endblock %}
+
+{% block content %}
+<p>Random quote:</p>
+{{ quote_base.quote(quote, false) }}
+{% endblock %}
