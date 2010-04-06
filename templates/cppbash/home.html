@@ -2,21 +2,36 @@
 {% import "cppbash/quote_base.html" as quote_base %}
 {% import "cppbash/filters.html" as filters %}
 
-{% block body_title %}Quotes{% endblock %}
+{% set head_title = "Quotes" %}
+{% set body_title = "Quotes" %}
 
 {% block content %}
+		<div id="filter">
+			<span>Language</span>: <a href="">No Filter</a> <a href="">English</a> <a href="">German</a><br/>
+			<span>Programming Language</span>: <a href="">No Filter</a>	<a href="">C++</a> <a href="">Python</a><br/>
+		</div>
 
-<p><a href="{{ url_for('random-quote') }}">Random quote</a></p>
 
-<p><a href="{{ url_for('submit') }}">Submit a new quote</a></p>
+{# filters.filters("language", "language", language, languages) #}
+{# filters.filters("programming language", "programming_language", programming_language, programming_languages) #}
 
-{{ filters.filters("language", "language", language, languages) }}
-{{ filters.filters("programming language", "programming_language", programming_language, programming_languages) }}
-
-<p>Quotes in our catalog:</p>
+{#
 <ul>
   {% for quote in quotes %}
   <li>{{ quote_base.quote(quote, true) }}</li>
   {% endfor %}
-</ul>
+</ul> #}
+
+{# TODO: Replace this: #}
+		<h2><span class="date">2010-04-04 23:25:46.600544</span> - German C++</h2>
+		<p class="quote">
+			&lt;Serdar1&gt; ich verstehe da mit friend nicht.<br/>
+			&lt;MrN&gt; Serdar1: wieso nicht?<br/>
+			&lt;Serdar1&gt; vermutlich, weil ich friend nicht verstehe.<br/>
+			&lt;Biolunar&gt; um friend zu verstehen musst du friend verstehen!<br/>
+			&lt;MrN&gt; Biolunar: du verwechselst das mit rekursion :)<br/>
+			&lt;Biolunar&gt; fervlucht<br/>
+			&lt;Serdar1&gt; against recursion! against recursion! against recursion! against recursion!...<br/>
+			&lt;Serdar1&gt; oh doch deutsch. http://pics.nase-bohren.de/gegen_rekursionen.jpg
+		</p>
 {% endblock %}

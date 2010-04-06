@@ -2,17 +2,20 @@
 <html>
   <head>
     <meta charset="utf-8"> <!-- for validator freaks -->
-    <title>{% block head_title %}{% endblock %} C++ Bash - Quotes from the C++ world </title>
-    <style type="text/css">
-      @import "/static/main.css";
-    </style>
+    <title>{{ head_title }} C++ Bash - Quotes from the C++ world </title>
+    <link rel="stylesheet" type="text/css" href="/static/main.css"/>
     <script type="text/javascript" src="/static/jquery-min.js"></script>
   </head>
   <body>
-    <a href="{{ url_for('home') }}"><img src="/static/logo.png" alt="C++ Bash" title="C++ Bash"></a>
-    <h1>{% block body_title %}{% endblock %}</h1>
+	<div id="header1"><div id="header2">
+		<a href="{{ url_for('random-quote') }}">Home</a> | <a href="{{ url_for('random-quote') }}">Random quote</a> | <a href="{{ url_for('submit') }}">Submit a new quote</a>
+	</div></div>
+	<div id="container">
+    <h1>{{ body_title }}</h1>
     {% block content %}{% endblock %}
-    <br><br>
-    <p>Find the code on <a href="http://github.com/MrN/cppbash">Github</a>.</p>
+	</div>
+	<div id="footer">
+		Find the code on <a href="http://github.com/MrN/cppbash">Github</a>.
+    </div>
   </body>
 </html>
