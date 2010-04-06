@@ -1,11 +1,21 @@
 {% extends "cppbash/base.html" %}
 {% import "cppbash/quote_base.html" as quote_base %}
+{% import "cppbash/filters.html" as filters %}
 
 {% block head_title %}Show random quote @{% endblock %}
 
 {% block body_title %}Random quote{% endblock %}
 
 {% block content %}
+{{ filters.filters("language", "language", language, languages) }}
+{{ filters.filters("programming language", "programming_language", programming_language, programming_languages) }}
+
 <p>Random quote:</p>
+
+{% if quote %}
 {{ quote_base.quote(quote, false) }}
+{% else %}
+No such quote found!
+{% endif %}
+
 {% endblock %}

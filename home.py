@@ -17,6 +17,9 @@ class HomeHandler(RequestHandler):
         language = filters.filter('language', request, response)
         programming_language = filters.filter('programming_language', request, response)
         
+        languages = filters.alternatives(language, models.languages)
+        programming_languages = filters.alternatives(programming_language, models.programming_languages)
+
         q = models.Quote.all()
         q.filter('accepted =', True)
         if language:
@@ -24,9 +27,6 @@ class HomeHandler(RequestHandler):
         if programming_language:
             q.filter('programming_language =', programming_language)
         q.order('-creation_date')
-        
-        languages = filters.alternatives(language, models.languages)
-        programming_languages = filters.alternatives(programming_language, models.programming_languages)
 
         if json:
             out = quotejson.json(q)
