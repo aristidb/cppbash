@@ -43,7 +43,10 @@ class RandomQuoteHandler(RequestHandler):
             query.order('random')
             qs.extend(query.fetch(_n - len(qs)))
 
-        q = random.choice(qs)
+        if len(qs) > 0:
+            q = random.choice(qs)
+        else:
+            q = None
 
         if json:
             if q == None:
