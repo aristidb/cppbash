@@ -18,7 +18,7 @@ class ReviewStartHandler(RequestHandler):
         q = models.Quote.all().filter('accepted =', False).order('creation_date')
         if q.count(1) == 0:
             return redirect_to('home')
-        return render_response('review.html', quotes = q)
+        return render_response('cppbash/review.html', quotes = q)
 
 class ReviewQuoteHandler(RequestHandler):
     def post(self, **kwargs):

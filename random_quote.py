@@ -17,4 +17,4 @@ class RandomQuoteHandler(RequestHandler):
         q = query.get()
         if q == None:
             raise NotFound
-        return render_response('quote.html', quote = q)
+        return render_response('cppbash/quote.html', quote = q)

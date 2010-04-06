@@ -24,9 +24,9 @@ class SubmitHandler(RequestHandler):
             q.random = 1.0
         # todo: validate
         q.put()
-        return render_response('quote.html', quote = q )
+        return render_response('cppbash/quote.html', quote = q )
 
     def get(self, **kwargs):
-        return render_response('submit.html', 
+        return render_response('cppbash/submit.html', 
                                languages = models.languages,
                                programming_languages = models.programming_languages)

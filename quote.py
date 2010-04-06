@@ -8,4 +8,4 @@ class QuoteViewHandler(RequestHandler):
     def get(self, **kwargs):
         key = db.Key(kwargs['key_name'])
         q = get_or_404(models.Quote, key)
-        return render_response('quote.html', quote = q)
+        return render_response('cppbash/quote.html', quote = q)
