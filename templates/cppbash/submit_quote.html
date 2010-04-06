@@ -1,0 +1,11 @@
+{% extends "cppbash/base.html" %}
+{% import "cppbash/quote_base.html" as quote_base %}
+
+{% block head_title %}Submitted quote @{% endblock %}
+
+{% block body_title %}Submitted quote{% endblock %}
+
+{% block content %}
+<p>Submitted quote:</p>
+{{ quote_base.quote(quote, false) }}
+{% endblock %}
