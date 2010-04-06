@@ -63,7 +63,7 @@ class HomeHandler(RequestHandler):
             out = simplejson.dumps(_json(q))
         else:
             out = render_template(
-                'cppbash/index.html',
+                'cppbash/home.html',
                 quotes = q,
                 language = language,
                 languages = languages,
