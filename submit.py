@@ -8,7 +8,6 @@ import datetime, os, random
 class SubmitHandler(RequestHandler):
     def post(self, **kwargs):
         p = request.form
-        first = (models.Quote.all().count(1) < 1)
         q = models.Quote(
             quote = p['quote'],
             language = p['language'],
@@ -18,10 +17,7 @@ class SubmitHandler(RequestHandler):
             q.submitter_email = db.Email(p['email'])
         q.submitter_ip = os.environ['REMOTE_ADDR']
         q.creation_date = datetime.datetime.now()
-        if not first:
-            q.random = random.random()
-        else:
-            q.random = 1.0
+        q.random = random.random()
         # todo: validate
         q.put()
         return render_response('cppbash/submit_quote.html', quote = q )
