@@ -3,24 +3,7 @@ from tipfy.ext.jinja2 import render_template
 from google.appengine.ext import db
 from google.appengine.api import users
 import models, quotejson
-
-def _filter(name, request, response):
-    data = request.args.get(name, None)
-    if data != None:
-        response.set_cookie(name, data)
-    else:
-        data = request.cookies.get(name, None)
-        if data == None:
-            data = ''
-            response.set_cookie(name, data)
-    return data
-
-def _alternatives(removed, standard):
-    possible = standard[:]
-    possible.append('')
-    if removed != None:
-        possible.remove(removed)
-    return possible
+import filters
 
 class HomeHandler(RequestHandler):
     def get(self, **kwargs):
@@ -31,8 +14,8 @@ class HomeHandler(RequestHandler):
         else:
             response = Response(mimetype = 'text/html')
 
-        language = _filter('language', request, response)
-        programming_language = _filter('programming_language', request, response)
+        language = filters.filter('language', request, response)
+        programming_language = filters.filter('programming_language', request, response)
         
         q = models.Quote.all()
         q.filter('accepted =', True)
@@ -42,8 +25,8 @@ class HomeHandler(RequestHandler):
             q.filter('programming_language =', programming_language)
         q.order('-creation_date')
         
-        languages = _alternatives(language, models.languages)
-        programming_languages = _alternatives(programming_language, models.programming_languages)
+        languages = filters.alternatives(language, models.languages)
+        programming_languages = filters.alternatives(programming_language, models.programming_languages)
 
         if json:
             out = quotejson.json(q)
