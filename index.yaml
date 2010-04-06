@@ -42,3 +42,8 @@ indexes:
   - name: programming_language
   - name: creation_date
     direction: desc
+
+- kind: Quote
+  properties:
+  - name: accepted
+  - name: random
