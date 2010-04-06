@@ -9,7 +9,7 @@
     <script type="text/javascript" src="/static/jquery-min.js"></script>
   </head>
   <body>
-    <a href="/"><img src="/static/logo.png" alt="C++ Bash" title="C++ Bash"></a>
+    <a href="{{ url_for('home') }}"><img src="/static/logo.png" alt="C++ Bash" title="C++ Bash"></a>
     <h1>{% block body_title %}{% endblock %}</h1>
     {% block content %}{% endblock %}
     <br><br>
