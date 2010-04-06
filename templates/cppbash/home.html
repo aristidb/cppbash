@@ -1,5 +1,6 @@
 {% extends "cppbash/base.html" %}
 {% import "cppbash/quote_base.html" as quote_base %}
+{% import "cppbash/filters.html" as filters %}
 
 {% block body_title %}Quotes{% endblock %}
 
@@ -9,19 +10,8 @@
 
 <p><a href="/submit">Submit a new quote</a></p>
 
-{% macro filters(name, parameter_name, item, collection) %}
-<p>Filter {{ name }}:
-{% if item %}
-({{ item }})
-{% endif %}
-{% for item in collection %}
-<a href="/?{{ parameter_name }}={{ item|urlparameter }}">[{{ item|default("No filter",true) }}]</a>
-{% endfor %}
-</p>
-{% endmacro %}
-
-{{ filters("language", "language", language, languages) }}
-{{ filters("programming language", "programming_language", programming_language, programming_languages) }}
+{{ filters.filters("language", "language", language, languages) }}
+{{ filters.filters("programming language", "programming_language", programming_language, programming_languages) }}
 
 <p>Quotes in our catalog:</p>
 <ul>
