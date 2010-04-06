@@ -3,7 +3,7 @@ from tipfy.ext.jinja2 import render_response
 from google.appengine.ext import db
 from google.appengine.api import users
 import models
-import datetime, os
+import datetime, os, random
 
 class SubmitHandler(RequestHandler):
     def post(self, **kwargs):
@@ -17,6 +17,7 @@ class SubmitHandler(RequestHandler):
             q.submitter_email = db.Email(p['email'])
         q.submitter_ip = os.environ['REMOTE_ADDR']
         q.creation_date = datetime.datetime.now()
+        q.random = random.random()
         # todo: validate
         q.put()
         return render_response('quote.html', quote = q )

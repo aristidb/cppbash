@@ -16,3 +16,4 @@ class Quote(db.Model):
     accepted_date=db.DateTimeProperty()
     submitter_ip=db.StringProperty()
     submitter_email=db.EmailProperty()
+    random=db.FloatProperty()
