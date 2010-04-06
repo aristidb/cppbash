@@ -1,6 +1,6 @@
 from tipfy import RequestHandler, request, Response, redirect, redirect_to, url_for
 from tipfy.ext.jinja2 import render_response
-from tipfy.ext.db import get_or_404
+from tipfy.ext.db import get_by_id_or_404
 from google.appengine.ext import db
 from google.appengine.api import users
 import models
@@ -26,8 +26,7 @@ class ReviewQuoteHandler(RequestHandler):
         r = models.Reviewer.all(keys_only = True).filter('user =', u).get() 
         if not r:
             return redirect_to('review-start')
-        key = db.Key(kwargs['key_name'])
-        q = get_or_404(models.Quote, key)
+        q = get_by_id_or_404(models.Quote, kwargs['id'])
         if request.form.get('accept', ''):
             q.quote = request.form['quote']
             q.language = request.form['language']
