@@ -4,7 +4,7 @@ from tipfy.ext.db import get_or_404
 from google.appengine.ext import db
 from google.appengine.api import users
 import models
-import datetime, os
+import datetime, os, random
 
 class ReviewStartHandler(RequestHandler):
     def get(self, **kwargs):
@@ -35,6 +35,7 @@ class ReviewQuoteHandler(RequestHandler):
             q.accepted = True
             q.accepted_by = r
             q.accepted_date = datetime.datetime.now()
+            q.random = random.random()
             q.put()
         else:
             q.delete()
