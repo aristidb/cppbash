@@ -10,9 +10,12 @@ def _filter(name, request, response):
     data = request.args.get(name, None)
     if data != None:
         response.set_cookie(name, data)
-        return data
     else:
-        return request.cookies.get(name, None)
+        data = request.cookies.get(name, None)
+        if data == None:
+            data = ''
+            response.set_cookie(name, data)
+    return data
 
 def _alternatives(removed, standard):
     possible = standard[:]
