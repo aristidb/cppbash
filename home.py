@@ -1,10 +1,8 @@
 from tipfy import RequestHandler, request, Response
 from tipfy.ext.jinja2 import render_template
-from tipfy.ext.db import get_property_dict
 from google.appengine.ext import db
 from google.appengine.api import users
-from django.utils import simplejson
-import models
+import models, quotejson
 
 def _filter(name, request, response):
     data = request.args.get(name, None)
@@ -23,18 +21,6 @@ def _alternatives(removed, standard):
     if removed != None:
         possible.remove(removed)
     return possible
-
-def _json(qs):
-    r = []
-    for q in qs:
-        d = get_property_dict(q)
-        r.append({
-                'creation_date': str(d['creation_date']),
-                'language': str(d['language']),
-                'programming_language': str(d['programming_language']),
-                'quote': unicode(d['quote']),
-                })
-    return r
 
 class HomeHandler(RequestHandler):
     def get(self, **kwargs):
@@ -60,7 +46,7 @@ class HomeHandler(RequestHandler):
         programming_languages = _alternatives(programming_language, models.programming_languages)
 
         if json:
-            out = simplejson.dumps(_json(q))
+            out = quotejson.json(q)
         else:
             out = render_template(
                 'cppbash/home.html',
