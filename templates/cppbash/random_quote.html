@@ -1,10 +1,8 @@
 {% extends "cppbash/base.html" %}
 {% import "cppbash/quote_base.html" as quote_base %}
 {% import "cppbash/filters.html" as filters %}
+{% set head_title = "Show random quote" %}
 
-{% block head_title %}Show random quote @{% endblock %}
-
-{% block body_title %}Random quote{% endblock %}
 
 {% block content %}
 {{ filters.filters("language", "language", language, languages) }}

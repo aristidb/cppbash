@@ -1,8 +1,5 @@
 {% extends "cppbash/base.html" %}
-
-{% block head_title %}Submit quote @{% endblock %}
-
-{% block body_title %}Submit quote{% endblock %}
+{% set head_title = "Submit quote" %}
 
 {% block content %}
 <form action="/submit" method="POST">

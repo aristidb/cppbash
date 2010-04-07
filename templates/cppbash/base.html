@@ -1,21 +1,21 @@
 <!DOCTYPE HTML>
 <html>
-  <head>
-    <meta charset="utf-8"> <!-- for validator freaks -->
-    <title>{{ head_title }} C++ Bash - Quotes from the C++ world </title>
-    <link rel="stylesheet" type="text/css" href="/static/main.css"/>
-    <script type="text/javascript" src="/static/jquery-min.js"></script>
-  </head>
-  <body>
-	<div id="header1"><div id="header2">
-		<a href="{{ url_for('random-quote') }}">Home</a> | <a href="{{ url_for('random-quote') }}">Random quote</a> | <a href="{{ url_for('submit') }}">Submit a new quote</a>
-	</div></div>
-	<div id="container">
-    <h1>{{ body_title }}</h1>
-    {% block content %}{% endblock %}
-	</div>
-	<div id="footer">
-		Find the code on <a href="http://github.com/MrN/cppbash">Github</a>.
-    </div>
-  </body>
+    <head>
+        <meta charset="utf-8"> <!-- for validator freaks -->
+        <title>{{ head_title }} C++ Bash - Quotes from the C++ world </title>
+        <link rel="stylesheet" type="text/css" href="/static/main.css"/>
+        <script type="text/javascript" src="/static/jquery-min.js"></script>
+    </head>
+    <body>
+        <div id="header1"><div id="header2">
+            <a href="{{ url_for('random-quote') }}">Home</a> | <a href="{{ url_for('random-quote') }}">Random quote</a> | <a href="{{ url_for('submit') }}">Submit a new quote</a>
+        </div></div>
+        <div id="container">
+            <h1>{{ body_title }}</h1>
+            {% block content %}{% endblock %}
+        </div>
+        <div id="footer">
+            Find the code on <a href="http://github.com/MrN/cppbash">Github</a>.
+        </div>
+    </body>
 </html>

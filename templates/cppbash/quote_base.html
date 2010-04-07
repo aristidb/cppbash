@@ -1,14 +1,10 @@
 {% macro quote(q, link) %}
-<span class="quote-creation-date">
-  {% if link %}
-  <a href="{{ url_for('quote-view', id = q.key().id()) }}">
-  {% endif %}
-    {{ q.creation_date }}
-  {% if link %}
-  </a>
-  {% endif %}
-</span>
-<span class="quote-language">{{ q.language }}</span>
-<span class="quote-programming-language">{{ q.programming_language }}</span>
-<div class="quote-quote">{{ q.quote|linebreaks }}</div>
+		<h2>
+			<span class="date">{{ q.creation_date }}</span>	{#<a href="{{ url_for('quote-view', id = q.key().id()) }}">#}
+			<span class="quote-language">{{ q.language }}</span>
+			<span class="quote-language">{{ q.programming_language }}</span>
+		</h2>
+		<p class="quote">
+			{{ q.quote|linebreaks }}
+		</p>
 {% endmacro %}
