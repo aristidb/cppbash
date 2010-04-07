@@ -9,6 +9,8 @@
 				<span class="quote-language">{{ q.language }}</span>
 				<span class="quote-language">{{ q.programming_language }}</span>
 			</h2>
-			{{ q.quote|linebreaks }}
+			<div class="content">
+				{{ q.quote|linebreaks }}
+			</div>
 		</div>
 {% endmacro %}
