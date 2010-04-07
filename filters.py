@@ -43,7 +43,20 @@ class FilterInstance(object):
     def add_to_query(self, query):
         if self.current:
             query.filter(self.name + ' =', self.current)
-        
+
+class FilterCollection(object):
+    def __init__(self, filters, request, response):
+        self.instances = dict()
+        for filt in filters:
+            self.instances[filt.name] = filt.make_instance(request, response)
+
+    def __getitem__(self, key):
+        return self.instances[key]
+
+    def add_to_query(self, query):
+        for key in sorted(self.instances.keys()):
+            self.instances[key].add_to_query(query)
 
 language_filter = Filter('language', models.languages, default = models.default_language)
 programming_language_filter = Filter('programming_language', models.programming_languages)
+filters = [language_filter, programming_language_filter]

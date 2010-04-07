@@ -3,7 +3,7 @@ from tipfy.ext.jinja2 import render_template
 from google.appengine.ext import db
 from google.appengine.api import users
 import models, quotejson
-from filters import language_filter, programming_language_filter
+from filters import FilterCollection, filters
 
 class HomeHandler(RequestHandler):
     def get(self, **kwargs):
@@ -14,12 +14,10 @@ class HomeHandler(RequestHandler):
         else:
             response = Response(mimetype = 'text/html')
 
-        language = language_filter.make_instance(request, response)
-        programming_language = programming_language_filter.make_instance(request, response)
+        collection = FilterCollection(filters, request, response)
         
         q = models.accepted_quotes()
-        language.add_to_query(q)
-        programming_language.add_to_query(q)
+        collection.add_to_query(q)
         q.order('-creation_date')
 
         if json:
@@ -28,8 +26,7 @@ class HomeHandler(RequestHandler):
             out = render_template(
                 'cppbash/home.html',
                 quotes = q,
-                language = language,
-                programming_language = programming_language)
+                filter_collection = collection)
 
         response.response = [out]
 
