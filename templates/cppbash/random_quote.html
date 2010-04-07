@@ -12,10 +12,11 @@
 
 {% if quote %}
 {{ quote_base.quote(quote, true) }}
+
+<a href="{{ url_for('random-quote') }}">Another random quote, please, Sir, would you be so kind?</a>
 {% else %}
 No such quote found!
 {% endif %}
 
-<a href="{{ url_for('random-quote') }}">Another random quote, please, Sir, would you be so kind?</a>
 
 {% endblock %}

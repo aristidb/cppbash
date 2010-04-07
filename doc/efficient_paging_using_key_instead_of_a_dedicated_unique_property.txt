@@ -1,0 +1,115 @@
+Hi all! There's been a lot of good discussion here about doing paging efficiently, as opposed to just using offset. We've been discussing efficient paging internally too. We hope to eventually provide something built in, but in the short term we have other priorities. Still, we've come up with some interesting ideas, and I'd like to share one of them here.
+
+Most of the efficient paging techniques discussed here have been based on sorting and filtering on a unique property. However, now that we have __key__ filtering, http://code.google.com/appengine/docs/datastore/queriesandindexes.html#Queries_on_Keys , we have a built-in unique field that we can filter and sort on. We can use that to support efficient paging in any query, on any schema, purely in user land, without requiring extra properties or other schema changes. (It will sometimes require a new composite index, but that's less invasive than requiring a new property.)
+
+The executive summary is, when you first run the query, if it doesn't already have a sort order on __key__, append one. Then, when you run the query, save the last entity as a bookmark. To pick up from there later, set up the original query, add filters on all of the sort order properties so that it starts immediately after the bookmark entity.
+
+The full design is below. We may provide some kind of built-in paging support in the future, but it won't be this. Given that, I'd love to see someone pick this up and implement it as an open source project!
+
+
+Bookmarks
+==
+A bookmark is the last result entity that was returned to the app for a given query. That bookmark entity is serialized and base64-encoded so that apps can pass it around in URL query parameters, cookies, etc. To keep bookmarks reasonably sized, raw properties and properties not involved in the query should be stripped from the bookmark entity before serializing and encoding it.
+
+
+Queries
+==
+If you want to be able to resume a query at a bookmark, you need to know that when you first run the query. That's because you need to append an ascending __key__ sort order to the query if it's not already there.
+
+To resume a query at a bookmark, first, decode the bookmark, validate it, and check that it has all of the properties needed by the query. Then, use the algorithm below to generate and run a series of derived queries that transparently resume the query at the bookmarked entity.
+
+Yes, queries plural. If your query has a sort order, you'll need to run two queries in serial to resume from a bookmark, due to the single inequality filter property limit. More accurately, if your query has n sort orders, you'll need to run n + 1 queries.
+
+Also, as mentioned above, making a query bookmarkable sometimes require extra composite indices that the corresponding non-bookmarkable query wouldn't require. This is due to the extra __key__ sort order.
+
+
+Resuming from a bookmark
+==
+Here's Python-like pseudocode for resuming a query at a bookmark. It generates a series of queries derived from the original query that, when run in order, return the original query's results starting at the bookmark. (The indentation is meaningful, so you might want to turn on a fixed-width font in your viewer here.)
+
+  given a query and a bookmark entity:
+    assert that all of the properties in the query are also in the bookmark entity
+  
+    # massage the query. this may add extra sort orders, but won't remove the
+    # existing ones, so it doesn't change the query's invariants.
+    if the query has an inequality filter but no sort order:
+      add an ASC sort order on the inequailty filter property
+  
+    if the query doesn't have a sort order on __key__:
+      append an ASC sort order on __key__
+  
+    # prepare the original query as a template for the derived queries
+    if the query has inequality filters:
+      remove them and record them
+  
+    for prop in the query's sort orders:
+      add a new filter to the query: "prop = [bookmark entity's value for prop]"
+  
+    remove the query's sort orders, except for __key__, and record them
+  
+    # generate the derived queries
+    make an empty FIFO queue for the derived queues
+    for prop in reversed(original query's sort orders):
+      make a deep copy of the original query
+      on that deep copy:
+        remove the = filter on prop
+  
+        replace it with a new filter:
+          if original sort order on prop was ASC:
+            operator = ">"
+          else:
+            operator = "<"
+          the new filter is "prop [operator] [bookmark entity's value for prop]"
+  
+        also, if there were other inequality filters on prop, add them back too
+        also add back the sort order on prop, at the beginning of the sort orders
+        enqueue this query
+
+To run the query starting from a bookmark, unwind the queue, ie pop the derived queries off one at a time, run them, and return their results. Then each query runs out of results, pop the next, and so on.
+
+Also, note that ancestor is unrelated. If it's specified on the original query, it should be included in the bookmarkable starting query and all of the derived queries, but it doesn't otherwise affect the algorithm otherwise.
+
+
+Examples
+==
+(Again, turn on a fixed-width font in your viewer here.)
+
+| *Original starting query*             | *Bookmarkable starting query*                          | *Derived queries for starting from bookmark entity B*          |
+
+| SELECT * FROM Foo                     | SELECT * FROM Foo ORDER BY __key__ ASC                 | SELECT * FROM Foo WHERE __key__ > B ORDER BY __key__ ASC       |
+
+| WHERE x = 0                           | WHERE x = 0 ORDER BY __key__ ASC                       | WHERE x = 0 AND __key__ > B ORDER BY __key__ ASC               |
+
+| WHERE x > 0                           | WHERE x > 0 ORDER BY x ASC, __key__ ASC                | WHERE x = B.x AND __key__ > B ORDER BY __key__ ASC             |
+|                                       |                                                        | WHERE x > B.x ORDER BY x ASC, __key__ ASC                      |
+
+| WHERE x = 0 AND y > 0                 | WHERE x = 0 AND y > 0 ORDER BY y ASC, __key__ ASC      | WHERE x = 0 AND y = B.y AND __key__ > B ORDER BY __key__ ASC   |
+|                                       |                                                        | WHERE x = 0 AND y > B.y ORDER BY y ASC, __key__ ASC            |
+
+| WHERE x > 0 AND x < 9                 | WHERE x > 0 AND x < 9 ORDER BY x ASC, __key__ ASC      | WHERE x = B.x AND __key__ > B ORDER BY __key__ ASC             |
+|                                       |                                                        | WHERE x > B.x AND x < 9 ORDER BY x ASC, __key__ ASC            |
+
+| WHERE __key__ > A AND __key__ < Z     | WHERE __key__ > A AND __key__ < Z ORDER BY __key__ ASC | WHERE __key__ > B AND __key__ < Z ORDER BY __key__ ASC         |
+
+| ORDER BY x ASC                        | ORDER BY x ASC, __key__ ASC                            | WHERE x = B.x AND __key__ > B ORDER BY __key__ ASC             |
+|                                       |                                                        | WHERE x > B.x ORDER BY x ASC, __key__ ASC                      |
+
+| ORDER BY x DESC                       | ORDER BY x DESC, __key__ ASC                           | WHERE x = B.x AND __key__ > B ORDER BY __key__ ASC             |
+|                                       |                                                        | WHERE x < B.x ORDER BY x DESC, __key__ ASC                     |
+
+| ORDER BY __key__ ASC                  | ORDER BY __key__ ASC                                   | WHERE __key__ > B ORDER BY __key__ ASC                         |
+
+| ORDER BY __key__ DESC                 | ORDER BY __key__ DESC                                  | WHERE __key__ < B ORDER BY __key__ DESC                        |
+
+| ORDER BY x ASC, y DESC                | ORDER BY x ASC, y DESC, __key__ ASC                    | WHERE x = B.x AND y = B.y AND __key__ > B ORDER BY __key__ ASC |
+|                                       |                                                        | WHERE x = B.x AND y < B.y ORDER BY y DESC, __key__ ASC         |
+|                                       |                                                        | WHERE x > B.x ORDER BY x ASC, y DESC, __key__ ASC              |
+
+| ORDER BY x ASC, __key__ DESC          | ORDER BY x ASC, __key__ DESC                           | WHERE x = B.x AND __key__ < B ORDER BY __key__ DESC            |
+|                                       |                                                        | WHERE x > B.x ORDER BY x ASC, __key__ DESC                     |
+
+| WHERE x = 0 ORDER BY y DESC           | WHERE x = 0 ORDER BY y DESC, __key__ ASC               | WHERE x = 0 AND y = B.y AND __key__ > B ORDER BY __key__ ASC   |
+|                                       |                                                        | WHERE x = 0 AND y < B.y ORDER BY y DESC, __key__ ASC           |
+
+| WHERE x > 0 AND x < 9 ORDER BY x DESC | WHERE x > 0 AND x < 9 ORDER BY x DESC, __key__ ASC     | WHERE x = B.x AND __key__ > B ORDER BY __key__ ASC             |
+|                                       |                                                        | WHERE x < B AND x > 0 ORDER BY x DESC, __key__ ASC             |

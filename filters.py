@@ -1,17 +1,34 @@
-def filter(name, request, response):
-    data = request.args.get(name, None)
-    if data != None:
-        response.set_cookie(name, data)
-    else:
-        data = request.cookies.get(name, None)
-        if data == None:
-            data = ''
-            response.set_cookie(name, data)
-    return data
+import models
 
-def alternatives(removed, standard):
-    possible = standard[:]
-    possible.append('')
-    if removed != None:
-        possible.remove(removed)
-    return possible
+class Filter(object):
+    def __init__(self, name, alternatives, default = '', add_empty = True):
+        self._name = name
+        self._alternatives = list(alternatives)
+        if add_empty:
+            self._alternatives.append('')
+        self._default = default
+
+    def filter(self, request, response):
+        data = request.args.get(self._name, None)
+        if data != None:
+            response.set_cookie(self._name, data)
+        else:
+            data = request.cookies.get(self._name, None)
+            if data == None:
+                data = self._default
+                response.set_cookie(self._name, data)
+        return data
+
+    def alternatives(self, removed):
+        result = self._alternatives[:]
+        if removed != None:
+            result.remove(removed)
+        return result
+
+    def compute(self, request, response):
+        current = self.filter(request, response)
+        other = self.alternatives(current)
+        return (current, other)
+
+language_filter = Filter('language', models.languages, default = models.default_language)
+programming_language_filter = Filter('programming_language', models.programming_languages)
