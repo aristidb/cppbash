@@ -14,15 +14,13 @@ class HomeHandler(RequestHandler):
         else:
             response = Response(mimetype = 'text/html')
 
-        (language, languages) = language_filter.compute(request, response)
-        (programming_language, programming_languages) = programming_language_filter.compute(request, response)
+        language = language_filter.make_instance(request, response)
+        programming_language = programming_language_filter.make_instance(request, response)
         
         q = models.Quote.all()
         q.filter('accepted =', True)
-        if language:
-            q.filter('language =', language)
-        if programming_language:
-            q.filter('programming_language =', programming_language)
+        language.add_to_query(q)
+        programming_language.add_to_query(q)
         q.order('-creation_date')
 
         if json:
@@ -32,9 +30,7 @@ class HomeHandler(RequestHandler):
                 'cppbash/home.html',
                 quotes = q,
                 language = language,
-                languages = languages,
-                programming_language = programming_language,
-                programming_languages = programming_languages)
+                programming_language = programming_language)
 
         response.response = [out]
 

@@ -17,15 +17,13 @@ class RandomQuoteHandler(RequestHandler):
         else:
             response = Response(mimetype = 'text/html')
 
-        (language, languages) = language_filter.compute(request, response)
-        (programming_language, programming_languages) = programming_language_filter.compute(request, response)
+        language = language_filter.make_instance(request, response)
+        programming_language = programming_language_filter.make_instance(request, response)
         
         query = models.Quote.all()
         query.filter('accepted =', True)
-        if language:
-            query.filter('language =', language)
-        if programming_language:
-            query.filter('programming_language =', programming_language)
+        language.add_to_query(query)
+        programming_language.add_to_query(query)
         query.filter('random >', random.random())
         query.order('random')
 
@@ -34,10 +32,8 @@ class RandomQuoteHandler(RequestHandler):
         if len(qs) < _n: # wraparound!
             query = models.Quote.all()
             query.filter('accepted =', True)
-            if language:
-                query.filter('language =', language)
-            if programming_language:
-                query.filter('programming_language =', programming_language)
+            language.add_to_query(query)
+            programming_language.add_to_query(query)
             query.order('random')
             qs.extend(query.fetch(_n - len(qs)))
 
@@ -56,9 +52,7 @@ class RandomQuoteHandler(RequestHandler):
                 'cppbash/random_quote.html',
                 quote = q,
                 language = language,
-                languages = languages,
-                programming_language = programming_language,
-                programming_languages = programming_languages)
+                programming_language = programming_language)
 
         response.response = [out]
 

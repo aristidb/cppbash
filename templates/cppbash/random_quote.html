@@ -7,8 +7,8 @@
 {% block body_title %}Random quote{% endblock %}
 
 {% block content %}
-{{ filters.filters("language", "language", language, languages) }}
-{{ filters.filters("programming language", "programming_language", programming_language, programming_languages) }}
+{{ filters.filters("language", language) }}
+{{ filters.filters("programming language", programming_language) }}
 
 <p>Random quote:</p>
 

@@ -10,8 +10,8 @@
 
 <p><a href="{{ url_for('submit') }}">Submit a new quote</a></p>
 
-{{ filters.filters("language", "language", language, languages) }}
-{{ filters.filters("programming language", "programming_language", programming_language, programming_languages) }}
+{{ filters.filters("language", language) }}
+{{ filters.filters("programming language", programming_language) }}
 
 <p>Quotes in our catalog:</p>
 <ul>
