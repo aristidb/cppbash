@@ -17,8 +17,7 @@ class HomeHandler(RequestHandler):
         language = language_filter.make_instance(request, response)
         programming_language = programming_language_filter.make_instance(request, response)
         
-        q = models.Quote.all()
-        q.filter('accepted =', True)
+        q = models.accepted_quotes()
         language.add_to_query(q)
         programming_language.add_to_query(q)
         q.order('-creation_date')

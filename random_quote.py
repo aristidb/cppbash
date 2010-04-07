@@ -20,8 +20,7 @@ class RandomQuoteHandler(RequestHandler):
         language = language_filter.make_instance(request, response)
         programming_language = programming_language_filter.make_instance(request, response)
         
-        query = models.Quote.all()
-        query.filter('accepted =', True)
+        query = models.accepted_quotes()
         language.add_to_query(query)
         programming_language.add_to_query(query)
         query.filter('random >', random.random())
