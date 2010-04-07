@@ -8,4 +8,6 @@
 {% block content %}
 <p>Quote:</p>
 {{ quote_base.quote(quote, false) }}
+
+<p><a href="{{ url_for('random-quote') }}">Show some random quote!</a></p>
 {% endblock %}
