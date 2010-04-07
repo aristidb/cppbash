@@ -24,11 +24,13 @@ div#header2 {
 }
 
 div#header2 a {
-	color: #939393;
+	color: #1267CE;
 }
 
+
 div#container {
-	margin: 10px 150px;
+	margin: 0px 150px;
+    margin-top: 10px;
 	padding: 5px;
 	padding-top: 30px;
 	background-image: url(images/bg2.png);
@@ -38,26 +40,35 @@ div#container {
 	min-height: 500px;
 }
 
+div#footer {
+    margin: 0 150px;
+    text-align: right;
+    opacity: 0.4;
+    font-size: 75%;
+}
+
 div#filter {
 	border-bottom: 2px dotted #1E1E1E;
 }
 
-div#filter a {
-	color: #1E1E1E;
+a {
+	color: #054797;
 }
 
-h2 {
+div.quote h2 {
 	font-size: 14px;
-	color: black;
+	color: #1E1E1E;
 	margin-bottom: 0;
 }
 
-h2 span.date {
-	color: #1E1E1E;
+
+div.quote h2 span.date {
+    font-style: italic;
 }
 
-p.quote {
-	margin-top: 4px;
+div.quote p {
+	margin-top: 0px;
+    margin-bottom: 20px;
 	background-color: white;
 	opacity: 0.6;
 }
