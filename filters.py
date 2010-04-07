@@ -30,5 +30,5 @@ class Filter(object):
         other = self.alternatives(current)
         return (current, other)
 
-language_filter = Filter('language', models.languages)
+language_filter = Filter('language', models.languages, default = models.default_language)
 programming_language_filter = Filter('programming_language', models.programming_languages)
