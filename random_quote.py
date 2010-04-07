@@ -12,10 +12,7 @@ class RandomQuoteHandler(RequestHandler):
     def get(self, **kwargs):
         json = request.is_xhr or request.args.get('json', '')
 
-        if json:
-            response = Response(mimetype = 'application/json')
-        else:
-            response = Response(mimetype = 'text/html')
+        response = Response(mimetype = 'application/json' if json else 'text/html')
 
         collection = FilterCollection(filters, request, response)
         
