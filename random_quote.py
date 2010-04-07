@@ -2,7 +2,8 @@ from tipfy import RequestHandler, request, Response
 from tipfy.ext.jinja2 import render_template
 from google.appengine.ext import db
 from werkzeug.exceptions import NotFound
-import models, filters, quotejson
+import models, quotejson
+from filters import language_filter, programming_language_filter
 import random
 
 _n = 5
@@ -16,11 +17,8 @@ class RandomQuoteHandler(RequestHandler):
         else:
             response = Response(mimetype = 'text/html')
 
-        language = filters.filter('language', request, response)
-        programming_language = filters.filter('programming_language', request, response)
-        
-        languages = filters.alternatives(language, models.languages)
-        programming_languages = filters.alternatives(programming_language, models.programming_languages)
+        (language, languages) = language_filter.compute(request, response)
+        (programming_language, programming_languages) = programming_language_filter.compute(request, response)
         
         query = models.Quote.all()
         query.filter('accepted =', True)
