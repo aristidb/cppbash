@@ -38,10 +38,7 @@ class RandomQuoteHandler(RequestHandler):
             q = None
 
         if json:
-            if q == None:
-                out = '[]'
-            else:
-                out = quotejson.json([q])
+            out = quotejson.single(q)
         else:
             out = render_template(
                 'cppbash/random_quote.html',
