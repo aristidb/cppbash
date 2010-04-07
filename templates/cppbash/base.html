@@ -11,11 +11,14 @@
             <a href="{{ url_for('home') }}">Home</a> | <a href="{{ url_for('random-quote') }}">Random quote</a> | <a href="{{ url_for('submit') }}">Submit a new quote</a>
         </div></div>
         <div id="container">
+            <div id="logo">
+                <img src="/static/logo.png" alt="Logo!"/>
+            </div>
             <h1>{{ body_title }}</h1>
             {% block content %}{% endblock %}
-        </div>
-        <div id="footer">
-            Copyright &copy; 2010 MrN. Design by michi7x7. Find the code on <a href="http://github.com/MrN/cppbash">Github</a>.
+            <div id="footer">
+                Copyright &copy; 2010 MrN. Design by michi7x7. Find the code on <a href="http://github.com/MrN/cppbash">Github</a>.
+            </div>
         </div>
     </body>
 </html>
