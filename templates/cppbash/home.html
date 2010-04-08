@@ -7,8 +7,8 @@
 
 {% block content %}
             <div id="filter">
-                {{ filters.filters("language", "language", language, languages) }}
-                {{ filters.filters("programming language", "programming_language", programming_language, programming_languages) }}
+                {{ filters.filters("language", filter_collection['language']) }}
+                {{ filters.filters("programming language", filter_collection['programming_language']) }}
             </div>
     {% for quote in quotes %}
         {{ quote_base.quote(quote, true) }}

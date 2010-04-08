@@ -1,9 +1,10 @@
-{% macro filters(name, parameter_name, item, collection) %}
-    <p class="filter">
-        <span>{{ name }}</span>:
-        {% if item %}({{ item }}){% endif %}
-        {% for item in collection %}
-            <a href="?{{ parameter_name }}={{ item|urlparameter }}">[{{ item|default("No filter",true) }}]</a>
-        {% endfor %}
-    </p>
+{% macro filters(name, filter_instance) %}
+<p>Filter {{ name }}:
+{% if filter_instance.current %}
+({{ filter_instance.current }})
+{% endif %}
+{% for item in filter_instance.other %}
+<a href="?{{ filter_instance.name }}={{ item|urlparameter }}">[{{ item|default("No filter",true) }}]</a>
+{% endfor %}
+</p>
 {% endmacro %}

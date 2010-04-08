@@ -12,3 +12,9 @@ def json(qs):
                 'quote': unicode(d['quote']),
                 })
     return simplejson.dumps(r)
+
+def single(q):
+    if q == None:
+        return '[]'
+    else:
+        return json([q])

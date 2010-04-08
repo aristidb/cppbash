@@ -18,3 +18,6 @@ class Quote(db.Model):
     submitter_ip=db.StringProperty()
     submitter_email=db.EmailProperty()
     random=db.FloatProperty()
+
+def accepted_quotes():
+    return Quote.all().filter('accepted =', True)
