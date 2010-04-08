@@ -1,10 +1,18 @@
-{% macro filters(name, filter_instance) %}
-<p>Filter {{ name }}:
+{% macro filter_url(instance_id, item, filter_collection) -%}
+?{{ instance_id }}={{ item|urlparameter }}
+{%- for other_id in filter_collection.instances if other_id != instance_id -%}
+&{{ other_id }}={{ filter_collection[other_id].current|urlparameter }}
+{%- endfor -%}
+{%- endmacro %}
+
+{% macro filters(title, filter_collection, instance_id) %}
+{% set filter_instance = filter_collection[instance_id] %}
+<p>Filter {{ title }}:
 {% if filter_instance.current %}
 ({{ filter_instance.current }})
 {% endif %}
 {% for item in filter_instance.other %}
-<a href="?{{ filter_instance.name }}={{ item|urlparameter }}">[{{ item|default("No filter",true) }}]</a>
+<a href="{{ filter_url(instance_id, item, filter_collection) }}">[{{ item|default("No filter",true) }}]</a>
 {% endfor %}
 </p>
 {% endmacro %}
