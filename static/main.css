@@ -2,6 +2,15 @@ body {
     background-image: url(images/bg.png);
     background-repeat: repeat-x;
     background-color: #939393;
+    font-family: DejaVu Sans Mono, Lucida Console, Monospace, sans-serif;
+}
+
+a {
+    color: #054797;
+}
+
+a img {
+    border: 0;
 }
 
 div#header1 {
@@ -58,9 +67,6 @@ div#filter {
     border-bottom: 2px dotted #1E1E1E;
 }
 
-a {
-    color: #054797;
-}
 
 div.quote h2 {
     font-size: 14px;
