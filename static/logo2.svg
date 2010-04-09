@@ -57,7 +57,7 @@
        color-interpolation-filters="sRGB">
       <feGaussianBlur
          id="feGaussianBlur3828"
-         stdDeviation="1.5"
+         stdDeviation="1"
          result="result1" />
       <feComposite
          id="feComposite3830"
@@ -74,7 +74,7 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1"
+     inkscape:zoom="2"
      inkscape:cx="152.86446"
      inkscape:cy="1.4285714"
      inkscape:document-units="px"
@@ -123,7 +123,7 @@
        y="929.31372"
        id="text2826"
        sodipodi:linespacing="125%"
-       transform="matrix(0.87413254,0,0,1.0778778,3.5912836,40.314976)"
+       transform="matrix(0.87413254,0,0,1.0778778,3.5912836,40.314966)"
        inkscape:export-xdpi="90.825691"
        inkscape:export-ydpi="90.825691"><tspan
          sodipodi:role="line"
