@@ -32,13 +32,14 @@ class Filter(object):
 
     def make_instance(self, request, response):
         (current, other) = self.compute(request, response)
-        return FilterInstance(self.name, current, other)
+        return FilterInstance(self.name, current, other, self._alternatives)
 
 class FilterInstance(object):
-    def __init__(self, name, current, other):
+    def __init__(self, name, current, other, all_):
         self.name = name
         self.current = current
         self.other = other
+        self.all = all_
 
     def add_to_query(self, query):
         if self.current:

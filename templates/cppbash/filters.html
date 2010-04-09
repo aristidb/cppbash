@@ -8,11 +8,12 @@
 {% macro filters(title, filter_collection, instance_id) %}
 {% set filter_instance = filter_collection[instance_id] %}
 <p>Filter {{ title }}:
-{% if filter_instance.current %}
-({{ filter_instance.current }})
+{% for item in filter_instance.all if item != '' %}
+{% if item == filter_instance.current %}
+({{ filter_instance.current }})<a href="{{ filter_url(instance_id, '', filter_collection) }}">--</a>
+{% else %}
+<a href="{{ filter_url(instance_id, item, filter_collection) }}">[{{ item }}]</a>
 {% endif %}
-{% for item in filter_instance.other %}
-<a href="{{ filter_url(instance_id, item, filter_collection) }}">[{{ item|default("No filter",true) }}]</a>
 {% endfor %}
 </p>
 {% endmacro %}
