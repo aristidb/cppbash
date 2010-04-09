@@ -2,9 +2,11 @@
 		<div class="quote">
 			<h2>
 				<span class="date">
-					{% if link %}<a href="{{ url_for('quote-view', id = q.key().id()) }}">{% endif %}
-					{{ q.creation_date }}
-					{% if link %}</a>{% endif %}
+					{% if link %}
+                        <a href="{{ url_for('quote-view', id = q.key().id()) }}">{{ q.creation_date }}</a>
+                    {% else %}
+                        {{ q.creation_date }}
+                    {% endif %}
 				</span>
 				<span class="quote-language">{{ q.language }}</span>
 				<span class="quote-language">{{ q.programming_language }}</span>
