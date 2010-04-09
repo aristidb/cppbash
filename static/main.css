@@ -34,9 +34,9 @@ div#header2 a {
 
 div#container {
 	margin: 0px 150px;
-    margin-top: 10px;
+	margin-top: 15px;
 	padding: 5px;
-    padding-top: 10px;
+	padding-top: 15px;
 	background-image: url(images/bg2.png);
 	border-left: 1px solid #1E1E1E;
 	border-right: 1px solid #1E1E1E;
