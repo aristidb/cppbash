@@ -1,26 +1,26 @@
 body {
-	background-image: url(images/bg.png);
-	background-repeat: repeat-x;
-	background-color: #939393;
+    background-image: url(images/bg.png);
+    background-repeat: repeat-x;
+    background-color: #939393;
 }
 
 div#header1 {
-	width: 100%;
-	position: fixed;
-	top: 0;
+    width: 100%;
+    position: fixed;
+    top: 0;
 }
 
 div#header1 div#header2 {
-	border: 1px solid white;
-	border-radius: 5px;
-	-moz-border-radius: 5px;
-	margin: 0 auto;
-	width: 500px;
+    border: 1px solid white;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    margin: 0 auto;
+    width: 500px;
 	
-	background-color: #1E1E1E;
-	text-align: center;
-	font-size: 18px;
-	opacity: 0.9;
+    background-color: #1E1E1E;
+    text-align: center;
+    font-size: 18px;
+    opacity: 0.9;
 }
 
 div#header1:hover div#header2 {
@@ -28,19 +28,19 @@ div#header1:hover div#header2 {
 }
 
 div#header2 a {
-	color: #377CCE;
+    color: #377CCE;
 }
 
 
 div#container {
-	margin: 0px 150px;
-	margin-top: 15px;
-	padding: 5px;
-	padding-top: 15px;
-	background-image: url(images/bg2.png);
-	border-left: 1px solid #1E1E1E;
-	border-right: 1px solid #1E1E1E;
-	min-height: 500px;
+    margin: 0px 150px;
+    margin-top: 15px;
+    padding: 5px;
+    padding-top: 15px;
+    background-image: url(images/bg2.png);
+    border-left: 1px solid #1E1E1E;
+    border-right: 1px solid #1E1E1E;
+    min-height: 500px;
 }
 
 div#container div#logo {
@@ -55,17 +55,17 @@ div#footer {
 }
 
 div#filter {
-	border-bottom: 2px dotted #1E1E1E;
+    border-bottom: 2px dotted #1E1E1E;
 }
 
 a {
-	color: #054797;
+    color: #054797;
 }
 
 div.quote h2 {
-	font-size: 14px;
-	color: #1E1E1E;
-	margin-bottom: 0;
+    font-size: 14px;
+    color: #1E1E1E;
+    margin-bottom: 0;
 }
 
 
@@ -80,10 +80,10 @@ div.quote div.content {
 }
 
 div.quote p {
-	margin: 0;
+    margin: 0;
     margin-bottom: 12px;
 }
 
 div.quote p:last-child {
-   margin-bottom: 0; 
+    margin-bottom: 0; 
 }
