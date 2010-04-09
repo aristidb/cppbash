@@ -57,7 +57,7 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2"
+     inkscape:zoom="1"
      inkscape:cx="192.36446"
      inkscape:cy="1.4285714"
      inkscape:document-units="px"
@@ -95,18 +95,23 @@
        x="3"
        y="994.86218"
        rx="17"
-       ry="17" />
+       ry="17"
+       inkscape:export-xdpi="90.825691"
+       inkscape:export-ydpi="90.825691"
+       inkscape:export-filename="/home/aristid/Code/cppbash/static/logo2.png" />
     <text
        xml:space="preserve"
-       style="font-size:59.23713684px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Silkscreen;-inkscape-font-specification:AlArabiya Bold"
-       x="5.5237222"
-       y="963.677"
+       style="font-size:62px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Silkscreen;-inkscape-font-specification:AlArabiya Bold"
+       x="4.1540203"
+       y="929.31372"
        id="text2826"
        sodipodi:linespacing="125%"
-       transform="scale(0.92558029,1.0804033)"><tspan
+       transform="scale(0.89115591,1.1221381)"
+       inkscape:export-xdpi="90.825691"
+       inkscape:export-ydpi="90.825691"><tspan
          sodipodi:role="line"
          id="tspan2828"
-         x="5.5237222"
-         y="963.677">C++ Bash</tspan></text>
+         x="4.1540203"
+         y="929.31372">C++ Bash</tspan></text>
   </g>
 </svg>
