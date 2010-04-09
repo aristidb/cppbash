@@ -49,6 +49,23 @@
        y2="30.75"
        gradientUnits="userSpaceOnUse"
        gradientTransform="matrix(1.0040706,0,0,0.99082566,-1.5183175,991.39429)" />
+    <filter
+       id="filter3826"
+       inkscape:label="Fancy blur"
+       inkscape:menu="Blurs"
+       inkscape:menu-tooltip="Smooth colorized contour which allows desaturation and hue rotation"
+       color-interpolation-filters="sRGB">
+      <feGaussianBlur
+         id="feGaussianBlur3828"
+         stdDeviation="1.5"
+         result="result1" />
+      <feComposite
+         id="feComposite3830"
+         in2="result1"
+         operator="arithmetic"
+         k2="2"
+         in="result1" />
+    </filter>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -58,7 +75,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1"
-     inkscape:cx="192.36446"
+     inkscape:cx="152.86446"
      inkscape:cy="1.4285714"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -101,12 +118,12 @@
        inkscape:export-filename="/home/aristid/Code/cppbash/static/logo2.png" />
     <text
        xml:space="preserve"
-       style="font-size:62px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;font-family:Silkscreen;-inkscape-font-specification:AlArabiya Bold"
+       style="font-size:62px;font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;text-align:start;line-height:125%;writing-mode:lr-tb;text-anchor:start;fill:#ffffff;fill-opacity:1;stroke:none;filter:url(#filter3826);font-family:Silkscreen;-inkscape-font-specification:AlArabiya Bold"
        x="4.1540203"
        y="929.31372"
        id="text2826"
        sodipodi:linespacing="125%"
-       transform="scale(0.89115591,1.1221381)"
+       transform="matrix(0.87413254,0,0,1.0778778,3.5912836,40.314976)"
        inkscape:export-xdpi="90.825691"
        inkscape:export-ydpi="90.825691"><tspan
          sodipodi:role="line"
