@@ -13,6 +13,17 @@ a img {
     border: 0;
 }
 
+div#bg_bash {
+    position: absolute;
+    top: 20px;
+    left: 10px;
+    z-index: -20;
+    background-image: url(images/bg_bash.png);
+    width: 500px;
+    height: 200px;
+    opacity: 0.4;
+}
+
 div#header1 {
     width: 100%;
     position: fixed;
