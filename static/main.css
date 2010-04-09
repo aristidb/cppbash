@@ -91,6 +91,8 @@ div.quote h2 span.date {
 }
 
 div.quote div.content {
+    border-radius: 5px;
+    -moz-border-radius: 5px;
     /* background-color: #EFEFEF; */
     background-image: url(images/bg2.png);
     padding: 2px;
