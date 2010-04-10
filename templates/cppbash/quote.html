@@ -2,9 +2,9 @@
 {% import "cppbash/quote_base.html" as quote_base %}
 
 {% set head_title = "Show quote" %}
+{% set body_title = "Quote" %}
 
 {% block content %}
-<p>Quote:</p>
 {{ quote_base.quote(quote, false) }}
 
 <p><a href="{{ url_for('random-quote') }}">Show some random quote!</a></p>
