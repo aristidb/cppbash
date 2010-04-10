@@ -3,6 +3,7 @@ body {
     background-repeat: repeat-x;
     background-color: #939393;
     font-family: DejaVu Sans Mono, Lucida Console, Monospace, sans-serif;
+    font-size: 10pt;
 }
 
 a {
@@ -39,7 +40,7 @@ div#header1 div#header2 {
 	
     background-color: #1E1E1E;
     text-align: center;
-    font-size: 18px;
+    font-size: 14pt;
     color: white;
     opacity: 0.9;
 }
