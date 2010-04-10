@@ -2,7 +2,7 @@
 {% import "cppbash/quote_base.html" as quote_base %}
 {% import "cppbash/filters.html" as filters %}
 {% set head_title = "Show random quote" %}
-
+{% set body_title = "Random quote" %}
 
 {% block content %}
 {{ filters.filters("language", filter_collection, "language") }}
