@@ -8,4 +8,6 @@
 {% block content %}
 <p>Submitted quote:</p>
 {{ quote_base.quote(quote, false) }}
+
+<p><a href="{{ url_for('submit') }}">Submit another quote.</a></p>
 {% endblock %}
