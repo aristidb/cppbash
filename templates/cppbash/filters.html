@@ -7,7 +7,7 @@
 
 {% macro filters(title, filter_collection, instance_id) %}
 {% set filter_instance = filter_collection[instance_id] %}
-<p>Filter {{ title }}:
+<p>Filter {{ title }}:<br>
 {% for item in filter_instance.all if item != '' %}
 {% if item == filter_instance.current %}
 ({{ filter_instance.current }})<a href="{{ filter_url(instance_id, '', filter_collection) }}">--</a>
