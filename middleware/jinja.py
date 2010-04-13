@@ -18,11 +18,15 @@ def linebreaks(eval_ctx, value):
 def urlparameter(value):
     return urllib.quote_plus(value)
 
+def atomdatetime(value):
+    return value.replace(microsecond=0, tzinfo=None).isoformat() + 'Z'
+
 class JinjaMiddleware(object):
     def pre_dispatch_handler(self):
         env = get_env()
         env.autoescape = True
         env.filters['linebreaks'] = linebreaks
         env.filters['urlparameter'] = urlparameter
+        env.filters['atomdatetime'] = atomdatetime
 
     

@@ -8,15 +8,18 @@ class Filter(object):
             self._alternatives.append('')
         self._default = default
 
-    def filter(self, request, response):
+    def filter(self, request, response, cookies=True):
         data = request.args.get(self.name, None)
         if data != None:
-            response.set_cookie(self.name, data)
+            if cookies:
+                response.set_cookie(self.name, data)
         else:
-            data = request.cookies.get(self.name, None)
+            if cookies:
+                data = request.cookies.get(self.name, None)
             if data == None:
                 data = self._default
-                response.set_cookie(self.name, data)
+                if cookies:
+                    response.set_cookie(self.name, data)
         return data
 
     def alternatives(self, removed):
@@ -25,13 +28,13 @@ class Filter(object):
             result.remove(removed)
         return result
 
-    def compute(self, request, response):
-        current = self.filter(request, response)
+    def compute(self, request, response, cookies=True):
+        current = self.filter(request, response, cookies)
         other = self.alternatives(current)
         return (current, other)
 
-    def make_instance(self, request, response):
-        (current, other) = self.compute(request, response)
+    def make_instance(self, request, response, cookies=True):
+        (current, other) = self.compute(request, response, cookies)
         return FilterInstance(self.name, current, other, self._alternatives)
 
 class FilterInstance(object):
@@ -46,10 +49,10 @@ class FilterInstance(object):
             query.filter(self.name + ' =', self.current)
 
 class FilterCollection(object):
-    def __init__(self, filters, request, response):
+    def __init__(self, filters, request, response, cookies=True):
         self.instances = dict()
         for filt in filters:
-            self.instances[filt.name] = filt.make_instance(request, response)
+            self.instances[filt.name] = filt.make_instance(request, response, cookies)
 
     def __getitem__(self, key):
         return self.instances[key]

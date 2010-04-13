@@ -22,6 +22,7 @@ def get_rules():
         tipfy.Rule('/review/<int:id>', endpoint='review-quote', handler='review.ReviewQuoteHandler'),
         tipfy.Rule('/quote/<int:id>', endpoint='quote-view', handler='quote.QuoteViewHandler'),
         tipfy.Rule('/random', endpoint='random-quote', handler='random_quote.RandomQuoteHandler'),
+        tipfy.Rule('/atom', endpoint='atom-view', handler='atom.AtomViewHandler')
         ]
 
     for app_module in tipfy.get_config('tipfy', 'apps_installed'):

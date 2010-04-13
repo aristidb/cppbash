@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title>{{ title }}</title> 
+  <link href="{{ link }}"/>
+
+  {% for quote in quotes -%}
+  <entry>
+    <title>Quote from {{ quote.creation_date }} ({{ quote.language }} {{ quote.programming_language }})</title>
+    <link href="{{ url_for('quote-view', id = quote.key().id(), full=True) }}"/>
+    <id>{{ url_for('quote-view', id = quote.key().id(), full=True) }}</id>
+    <updated>{{ quote.creation_date|atomdatetime }}</updated>
+    <content type="text">{{ quote.quote }}</content>
+  </entry>
+  {% endfor %}
+</feed>
