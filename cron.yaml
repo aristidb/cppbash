@@ -1,5 +1,4 @@
 cron:
 - description: daily review reminder
   url: /review/remind
-  schedule: every day 14:00
-  timezone: Europe/Berlin
+  schedule: every 24 hours
