@@ -20,6 +20,9 @@ handlers:
 - url: /review.*
   script: main.py
   login: required
+- url: /review/remind
+  script: main.py
+  login: admin
 - url: /.*
   script: main.py
 

@@ -20,9 +20,10 @@ def get_rules():
         tipfy.Rule('/submit', endpoint='submit', handler='submit.SubmitHandler'),
         tipfy.Rule('/review', endpoint='review-start', handler='review.ReviewStartHandler'),
         tipfy.Rule('/review/<int:id>', endpoint='review-quote', handler='review.ReviewQuoteHandler'),
+        tipfy.Rule('/review/remind', endpoint='review-remind', handler='review.ReviewRemindHandler'),
         tipfy.Rule('/quote/<int:id>', endpoint='quote-view', handler='quote.QuoteViewHandler'),
         tipfy.Rule('/random', endpoint='random-quote', handler='random_quote.RandomQuoteHandler'),
-        tipfy.Rule('/atom', endpoint='atom-view', handler='atom.AtomViewHandler')
+        tipfy.Rule('/atom', endpoint='atom-view', handler='atom.AtomViewHandler'),
         ]
 
     for app_module in tipfy.get_config('tipfy', 'apps_installed'):

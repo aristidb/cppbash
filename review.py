@@ -2,7 +2,7 @@ from tipfy import RequestHandler, request, Response, redirect, redirect_to, url_
 from tipfy.ext.jinja2 import render_response
 from tipfy.ext.db import get_by_id_or_404
 from google.appengine.ext import db
-from google.appengine.api import users
+from google.appengine.api import users, mail
 import models
 import datetime, os
 
@@ -38,3 +38,24 @@ class ReviewQuoteHandler(RequestHandler):
         else:
             q.delete()
         return redirect_to('review-start')
+
+class ReviewRemindHandler(RequestHandler):
+    def get(self, **kwargs):
+        q = models.Quote.all().filter('accepted =', False)
+        if q.count(1) == 0:
+            return Response('no reminder needed')
+        rs = models.Reviewer.all()
+        for r in rs:
+            mail.send_mail(sender="C++ Bash <noreply@cppbash.com>",
+                           to=[r.user.email() for r in rs],
+                           subject="There are quotes to be reviewed",
+                           body="""
+Dear Reviewer,
+
+There are new quotes to be reviewed. Please go to <http://www.cppbash.com/review>
+
+Thank you,
+
+the C++ Bash system
+""")
+        return Response('reminders sent')
