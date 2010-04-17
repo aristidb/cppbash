@@ -2,7 +2,7 @@ from google.appengine.ext import db
 
 languages = ['English', 'German']
 default_language = 'English'
-programming_languages = ['C++', 'Python', 'Haskell', 'Prolog', 'Visual Basic / Java']
+programming_languages = ['C++', 'Python', 'Haskell', 'Prolog', 'Visual Basic / Java', 'PHP']
 
 class Reviewer(db.Model):
     user=db.UserProperty()
